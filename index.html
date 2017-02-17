@@ -6,23 +6,43 @@
 </head>
 <body>
 	<h1>Trivia!</h1>
-	<div id="timeBox"><h2>Time remaining</h2><h3><span id="timer"></span> seconds.</h3></div>
+	<div id="timeBox">
+		<h2>Time remaining</h2>
+		<h3><span id="timer"></span> seconds.</h3>
+		<h2>Wins: <span id="wins"></span></h2>
+	</div>
 	<div id="questionBox">
 		<div id="question">
 			<h3 id="q">wtf</h3>
 		</div>
 		<div id="answers">
-			<h3 id="ans0"></h3>
-			<h3 id="ans1"></h3>
-			<h3 id="ans2"></h3>
-			<h3 id="ans3"></h3>
+			<div><h3 id="ans0"></h3></div>
+			<div><h3 id="ans1"></h3></div>
+			<div><h3 id="ans2"></h3></div>
+			<div><h3 id="ans3"></h3></div>
 		</div>
 	</div>
 	<div id="startBox">
 		<h1 id="alertStart">Click to start!</h1>
-		<button id="startButton" onClick=(start())>Start!</button>
+		<button id="startButton" onClick="start()">Start!</button>
 	</div>
 	<script src="assets/js/trivia.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script>
+	$( document ).ready(function() {
+		$("#ans0").on("click", function() {
+			checkAnswer(#ans0);
+		});
+		$("#ans1").on("click", function() {
+			checkAnswer(#ans1);
+		});
+		$("#ans2").on("click", function() {
+			checkAnswer(#ans2);
+		});
+		$("#ans3").on("click", function() {
+			checkAnswer(#ans3);
+		});
+    });
+    </script>
 </body>
 </html>
