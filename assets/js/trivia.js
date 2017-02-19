@@ -68,8 +68,31 @@ function correctAnswer() {
 
 //Checks to see if the selected string is equal to the correct answer
 function checkAnswer(choice) {
-	if (choice == triviaQuestion[wins].correct) {
-		wins += 1;
+	switch(choice) {
+		case 0:
+			if (triviaQuestion[wins].option1 == triviaQuestion[wins].correct) {
+				wins += 1;
+				correctAnswer();
+			}
+			break;
+		case 1:
+			if (triviaQuestion[wins].option2 == triviaQuestion[wins].correct) {
+				wins += 1;
+				correctAnswer();
+			}
+			break;
+		case 2:
+			if (triviaQuestion[wins].option3 == triviaQuestion[wins].correct) {
+				wins += 1;
+				correctAnswer();;
+			}
+		case 3:
+			if (triviaQuestion[wins].option4 == triviaQuestion[wins].correct) {
+				wins += 1;
+				correctAnswer();
+			}
+		default:
+			lose();
 	}
 }
 
