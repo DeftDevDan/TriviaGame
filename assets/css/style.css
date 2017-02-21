@@ -1,0 +1,55 @@
+@font-face {
+    font-family: starjedi;
+    src: url(../font/starjedi/Starjedi.ttf);
+}
+body {
+	text-align:center;
+	background-image: url("../images/background.jpg");
+	background-position:fixed;
+	color: #2719C7;
+}
+h1 {
+	font-size:2em;
+}
+h2 {
+	font-size: 1.8em;
+}
+h3 {
+	font-size: 1.4em;
+	width: auto;
+}
+button {
+	color: #000;
+	margin-top: 15px;
+	font-size: 2em;
+}
+#topLabel {
+	color: #000;
+	text-shadow: -1px 0 yellow, 0 1px yellow, 1px 0 yellow, 0 -1px yellow;
+	font-family: starjedi;
+	font-weight: bold;
+	font-size: 4em;
+	margin-bottom: 30px;
+	margin-top: 20px;
+}
+#answers h3 {
+	border: 1px solid #ccc;
+	margin: 5px;
+	padding: 5px 0px 5px 0px;
+	color: #fff;
+	background-color: #000;
+}
+#correct {
+	color: green;
+}
+#time {
+	color: #CE0C2C;
+}
+#timeBox {
+	margin-bottom: 30px;
+}
+#answers {
+	margin-top: 5px;
+	overflow:auto;
+	background-color: rgba(245, 245, 245, 0.6);
+}
