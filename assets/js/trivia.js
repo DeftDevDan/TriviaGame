@@ -1,6 +1,6 @@
 window.onload=first;
 var time;
-var timer;
+var timer, cont, autoRestart;
 var wins = 0;
 var triviaQuestion;
 var trivia0, trivia1, trivia2, trivia3, trivia4, trivia5, trivia6, trivia7, trivia8, trivia9;
@@ -29,6 +29,8 @@ function start() {
 	$("#startBox").hide();
 	$("#timeBox").animate().fadeIn(1000);
 	$("#questionBox").animate().fadeIn(1000);
+	clearInterval(cont);
+	clearInterval(autoRestart);
 	timer = setInterval(function() {
 		$("#timer").html(time);
 		time--;
@@ -52,9 +54,17 @@ function lose() {
 	wins = 0;
 	$("#alertStart").html("Boo, you suck, you're a loser! Try again?");
 	$("body").css("color", "#CE0C2C");
-	$("#startButton").html("Start Over");
+	var restart = 10;
+	autoRestart = setInterval(function() {
+		$("#startButton").html("Start Over " + restart);
+		restart--;
+		if(restart < 0) {
+			start();
+		}
+	}, 1000);
 	$("#startButton").removeClass();
 	$("#startButton").addClass("btn-danger");
+
 
 	startBoxShow();
 }
@@ -73,7 +83,14 @@ function correctAnswer() {
 	} else {
 		clearInterval(timer);
 		$("#alertStart").html("Great job! Continue When Ready");
-		$("#startButton").html("Continue");
+		var contTimer = 10;
+		cont = setInterval(function() {
+			$("#startButton").html("Continue " + contTimer);
+			contTimer--;
+			if (contTimer < 0) {
+				start();
+			}
+		}, 1000);
 		$("#startButton").removeClass();
 		$("#startButton").addClass("btn-success");
 		startBoxShow();
