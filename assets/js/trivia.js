@@ -1,7 +1,7 @@
 window.onload=first;
 var time;
 var timer, cont, autoRestart;
-var wins = 0;
+var q = 0, correct = 0, wrong = 0;
 var triviaQuestion;
 var trivia0, trivia1, trivia2, trivia3, trivia4, trivia5, trivia6, trivia7, trivia8, trivia9;
 
@@ -38,30 +38,55 @@ function start() {
 			lose();
 		}
 	}, 1000);
-	$("#topLabel").html("question " + (wins + 1));
-	$("#q").html(triviaQuestion[wins].question);
-	$("#ans0").html(triviaQuestion[wins].option1);
-	$("#ans1").html(triviaQuestion[wins].option2);
-	$("#ans2").html(triviaQuestion[wins].option3);
-	$("#ans3").html(triviaQuestion[wins].option4);
-	$("#wins").html(wins);
+	$("#topLabel").html("question " + (q + 1));
+	$("#q").html(triviaQuestion[q].question);
+	$("#ans0").html(triviaQuestion[q].option1);
+	$("#ans1").html(triviaQuestion[q].option2);
+	$("#ans2").html(triviaQuestion[q].option3);
+	$("#ans3").html(triviaQuestion[q].option4);
+	$("#wins").html(correct);
 	$("#startButton").removeClass();
 	$("#startButton").addClass("btn-primary");
 }
 
 function lose() {
 	clearInterval(timer);
-	wins = 0;
-	$("#alertStart").html("Boo, you suck, you're a loser! Try again?");
+	wrong++;
+	q++;
+
 	$("body").css("color", "#CE0C2C");
-	var restart = 10;
-	autoRestart = setInterval(function() {
-		$("#startButton").html("Start Over " + restart);
-		restart--;
-		if(restart < 0) {
-			start();
-		}
-	}, 1000);
+	if (q == 10) {
+		clearInterval(timer);
+		$("#alertStart").html("You got " + correct + "correct, and " + wrong + "wrong");
+		$("#startButton").removeClass();
+		$("#startButton").addClass("btn-success");
+		q = 0;
+		correct = 0;
+		wrong = 0;
+		startBoxShow();
+		var restart = 10;
+		autoRestart = setInterval(function() {
+			$("#startButton").html("Start Over " + restart);
+			restart--;
+			if(restart < 0) {
+				start();
+			}
+		}, 1000);
+	} else {
+		clearInterval(timer);
+		$("#alertStart").html("Boo, you suck, you're a loser!");
+		var contTimer = 10;
+		cont = setInterval(function() {
+			$("#startButton").html("Continue " + contTimer);
+			contTimer--;
+			if (contTimer < 0) {
+				start();
+			}
+		}, 1000);
+		$("#startButton").removeClass();
+		$("#startButton").addClass("btn-success");
+		startBoxShow();
+	}
 	$("#startButton").removeClass();
 	$("#startButton").addClass("btn-danger");
 
@@ -70,16 +95,26 @@ function lose() {
 }
 
 function correctAnswer() {
-	wins += 1;
+	correct++;
+	q++;
 	$("body").css("color", "#17AF0A");
-	if (wins == 10) {
+	if (q == 10) {
 		clearInterval(timer);
-		$("#alertStart").html("You beat the game. No more questions left.");
-		$("#startButton").html("Restart");
+		$("#alertStart").html("You got " + q + "correct, and " + wrong + "wrong");
 		$("#startButton").removeClass();
 		$("#startButton").addClass("btn-success");
-		wins = 0;
+		q = 0;
+		correct = 0;
+		wrong = 0;
 		startBoxShow();
+		var restart = 10;
+		autoRestart = setInterval(function() {
+			$("#startButton").html("Start Over " + restart);
+			restart--;
+			if(restart < 0) {
+				start();
+			}
+		}, 1000);
 	} else {
 		clearInterval(timer);
 		$("#alertStart").html("Great job! Continue When Ready");
@@ -98,13 +133,13 @@ function correctAnswer() {
 }
 
 function checkAnswer(choice) {
-	if (choice == 0 && triviaQuestion[wins].option1 == triviaQuestion[wins].correct) {
+	if (choice == 0 && triviaQuestion[q].option1 == triviaQuestion[q].correct) {
 		correctAnswer();
-	} else if (choice == 1 && triviaQuestion[wins].option2 == triviaQuestion[wins].correct) {
+	} else if (choice == 1 && triviaQuestion[q].option2 == triviaQuestion[q].correct) {
 		correctAnswer();
-	} else if (choice ==2 && triviaQuestion[wins].option3 == triviaQuestion[wins].correct) {
+	} else if (choice ==2 && triviaQuestion[q].option3 == triviaQuestion[q].correct) {
 		correctAnswer();
-	} else if (choice == 3 && triviaQuestion[wins].option4 == triviaQuestion[wins].correct) {
+	} else if (choice == 3 && triviaQuestion[q].option4 == triviaQuestion[q].correct) {
 		correctAnswer();
 	} else {
 		lose();
